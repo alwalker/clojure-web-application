@@ -1,0 +1,33 @@
+ARG FEDORA_VERSION=39
+ARG FEDORA_ARCH=x86_64
+FROM registry.fedoraproject.org/fedora:$FEDORA_VERSION-$FEDORA_ARCH
+
+RUN dnf install -y --refresh \
+    dnf-plugins-core \
+    ncurses \
+    nc \
+    less \
+    gcc \
+    glibc \
+    libgcc \
+    libstdc++ \
+    graphviz \
+    git \
+    python \
+    ca-certificates \
+    tar \
+    wget \
+    tree \
+    vim \
+    unzip \
+    jq \
+    lsof \
+    bind-utils \
+    redis \
+    postgresql \
+    java-21-openjdk-devel
+
+RUN wget "https://codeberg.org/leiningen/leiningen/raw/branch/stable/bin/lein" -O /usr/local/bin/lein \
+    && chmod +x /usr/local/bin/lein
+
+RUN dnf clean all

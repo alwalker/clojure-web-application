@@ -1,0 +1,10 @@
+FROM clojure AS build
+COPY . /usr/src/app
+WORKDIR /usr/src/app
+RUN lein ring uberjar
+
+
+FROM ubuntu/jre:17-22.04_edge as runtime
+WORKDIR /app
+COPY --from=build /usr/src/app/target/sample.jar .
+CMD sample.jar
